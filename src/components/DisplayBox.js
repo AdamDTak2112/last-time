@@ -5,20 +5,20 @@ import Button from "react-bootstrap/Button";
 class DisplayBox extends React.Component{
     constructor(){
         super();
+
+
+    }
+
+    handleClick = () => {
         
-
-    }
-
-    handleClick(){
-
-    }
+    };
 
     render(){
         return (
             <div>
                 <h1>When Did Ein Pee Last?</h1>
                 <TodaysDate/>
-                <Button onClick={handleClick()}/>
+                <Button onClick={handleClick}/>
             </div>
         );
     }
