@@ -1,6 +1,7 @@
 import React from "react";
 import TodaysDate from "./TodaysDate";
 import Button from "react-bootstrap/Button";
+import '../App.css';
 
 class DisplayBox extends React.Component{
     constructor(){
