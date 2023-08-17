@@ -19,10 +19,14 @@ class DisplayBox extends React.Component{
 
     render(){
         return (
-            <div className="container">
-                <h1>When Did Ein Pee Last?</h1>
-                <TodaysDate/>
-                <Button onClick={this.handleClick}/>
+            <div className="container text-center">
+                <div className="row align-items-center">
+                    <div className="col align-self-center">
+                    <h1>When Did Ein Pee Last?</h1>
+                    <TodaysDate/>
+                    <Button onClick={this.handleClick}>Log</Button>
+                    </div>
+                </div>
             </div>
         );
     }
