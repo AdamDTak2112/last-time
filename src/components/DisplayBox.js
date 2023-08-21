@@ -7,7 +7,7 @@ class DisplayBox extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            lastTime: '',
+            lastTime: 'first time',
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -21,23 +21,10 @@ class DisplayBox extends React.Component{
     handleClick() {
         //TODO pass timestamp to date component
         const today = new Date();
-        console.log(today.toString());
-        const month = today.getMonth();
-        console.log("month: " + month);
-        const year = today.getFullYear();
-        console.log("year: " + year);
-        const date = today.getDate();
-        console.log("date: " + date);
-        const hours = today.getHours();
-        console.log("month: " + month);
-        const minutes = today.getMinutes();
-        console.log("minutes: " + minutes);
-        //console.log(`${month}/${date}/${year} at ${hours}:${minutes}`)
-        this.setState(() => {
-            return {
-            lastTime: `${month}/${date}/${year} at ${hours}:${minutes}`
-        }});
-        console.log(this.state.lastTime);
+        this.setState({
+            lastTime: today.toString()
+        })
+        console.log(this.state.lastTime); 
     }
 
     render(){
