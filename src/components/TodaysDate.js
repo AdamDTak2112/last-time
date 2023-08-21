@@ -1,22 +1,14 @@
-import {useState} from 'react';
-
-function getDate() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    const date = today.getDate();
-    const hours = today.getHours();
-    const minutes = today.getMinutes();
-    return `${month}/${date}/${year} at ${hours}:${minutes}`
-  }
+import { useState } from "react";
 
 
-function TodaysDate(){
-    const [currentDate, setCurrentDate] = useState(getDate());
+function TodaysDate({date}){
+    const [todaysDate, setTodaysDate] = useState(date);
 
+
+    
     return(
         <div>
-            <h2>{currentDate}</h2>
+            <h2>{todaysDate}</h2>
         </div>
     );
 }
