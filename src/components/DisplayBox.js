@@ -28,7 +28,7 @@ class DisplayBox extends React.Component{
             <div className="container text-center">
                 <div className="row align-items-center">
                     <div className="col align-self-center">
-                    <h1>When Did Ein Pee Last?</h1>
+                    <h1 className="heading">When Did Ein Pee Last?</h1>
                     <TodaysDate date={this.state.lastTime}/>
                     <Button onClick={this.handleClick}>Log</Button>
                     </div>
