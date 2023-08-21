@@ -14,10 +14,6 @@ class DisplayBox extends React.Component{
         this.getLastTime = this.getLastTime.bind(this);
     }
 
-    getLastTime(){
-        return this.state.lastTime;
-    }
-
     handleClick() {
         //TODO pass timestamp to date component
         const today = new Date();
