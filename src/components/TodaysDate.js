@@ -5,6 +5,9 @@ function TodaysDate({date}){
     const [todaysDate, setTodaysDate] = useState(date);
 
 
+    if (date !== todaysDate){
+        setTodaysDate(date);
+    }
     
     return(
         <div>
