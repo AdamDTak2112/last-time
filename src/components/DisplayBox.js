@@ -11,7 +11,7 @@ class DisplayBox extends React.Component{
         };
 
         this.handleClick = this.handleClick.bind(this);
-        this.getLastTime = this.getLastTime.bind(this);
+        
     }
 
     handleClick() {
@@ -20,7 +20,7 @@ class DisplayBox extends React.Component{
         this.setState({
             lastTime: today.toString()
         })
-        console.log(this.state.lastTime); 
+        //console.log(this.state.lastTime); 
     }
 
     render(){
