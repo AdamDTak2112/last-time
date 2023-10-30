@@ -1,6 +1,8 @@
 import React from "react";
 import TodaysDate from "./TodaysDate";
 import Button from "react-bootstrap/Button";
+import { getDatabase, ref, set } from "firebase/database";
+
 import '../App.css';
 
 class DisplayBox extends React.Component{
