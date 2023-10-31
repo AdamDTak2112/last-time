@@ -12,31 +12,26 @@ class DisplayBox extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            lastTime: 'first time',
-            app: null
+            lastTime: null,
         };
 
         this.handleClick = this.handleClick.bind(this);
         this.getLastTime = this.getLastTime.bind(this);
         this.setNewLastTime = this.setNewLastTime.bind(this);
         this.concatDate = this.concatDate.bind(this);
+        this.getDbRef = this.getDbRef.bind(this);
     }
 
+    //TODO fix this so it doesn't run twice
     componentDidMount() {
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const dbRef = ref(db, 'lastTime/');
         this.setState({
-
-            app: app,
             lastTime: this.getLastTime()
-
         })
     }
 
     handleClick() {
         const today = new Date();
-        console.log(this.concatDate(today));
+        //console.log(this.concatDate(today));
         this.setState({
             lastTime: this.concatDate(today)
         });
@@ -44,8 +39,7 @@ class DisplayBox extends React.Component{
     }
 
     getLastTime() {
-        const db = getDatabase();
-        const dbRef = ref(db, 'lastTime/');
+        const dbRef = this.getDbRef();
         onValue(dbRef, (snapshot) => {
             const data = snapshot.val();
             console.log(data);
@@ -55,15 +49,21 @@ class DisplayBox extends React.Component{
         });
     }
 
-    //TODO fix this function -- the date is not being set in the database every time
-    setNewLastTime() {
-        const db = getDatabase();
+    getDbRef() {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
         const dbRef = ref(db, 'lastTime/');
+        return dbRef;
+    }
+
+    
+    setNewLastTime() {
+        const dbRef = this.getDbRef();
         set(dbRef, this.state.lastTime);
     }
 
     concatDate(date) {
-        return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+        return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     }
 
     render(){
