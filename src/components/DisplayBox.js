@@ -1,29 +1,56 @@
 import React from "react";
 import TodaysDate from "./TodaysDate";
 import Button from "react-bootstrap/Button";
-import { getDatabase, ref, set } from "firebase/database";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set, onValue} from "firebase/database";
+import { firebaseConfig } from "../services/firebase.config";
 
 import '../App.css';
 
 class DisplayBox extends React.Component{
+    
     constructor(props){
         super(props);
         this.state={
             lastTime: 'first time',
+            app: null
         };
 
         this.handleClick = this.handleClick.bind(this);
-        
+        this.getLastTime = this.getLastTime.bind(this);
+    }
+
+    componentDidMount() {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dbRef = ref(db, 'lastTime/');
+        this.setState({
+
+            app: app,
+            lastTime: this.getLastTime()
+        })
     }
 
     handleClick() {
-        //TODO pass timestamp to date component
         const today = new Date();
         this.setState({
             lastTime: today.toString()
-        })
-        //console.log(this.state.lastTime); 
+        });
     }
+
+    getLastTime() {
+        const db = getDatabase();
+        const dbRef = ref(db, 'lastTime/');
+        onValue(dbRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            this.setState({
+                lastTime: data
+            });
+        });
+    }
+
+
 
     render(){
         return (
