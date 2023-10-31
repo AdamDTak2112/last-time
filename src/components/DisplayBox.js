@@ -18,6 +18,8 @@ class DisplayBox extends React.Component{
 
         this.handleClick = this.handleClick.bind(this);
         this.getLastTime = this.getLastTime.bind(this);
+        this.setNewLastTime = this.setNewLastTime.bind(this);
+        this.concatDate = this.concatDate.bind(this);
     }
 
     componentDidMount() {
@@ -28,14 +30,17 @@ class DisplayBox extends React.Component{
 
             app: app,
             lastTime: this.getLastTime()
+
         })
     }
 
     handleClick() {
         const today = new Date();
+        console.log(this.concatDate(today));
         this.setState({
-            lastTime: today.toString()
+            lastTime: this.concatDate(today)
         });
+        this.setNewLastTime();
     }
 
     getLastTime() {
@@ -50,7 +55,16 @@ class DisplayBox extends React.Component{
         });
     }
 
+    //TODO fix this function -- the date is not being set in the database every time
+    setNewLastTime() {
+        const db = getDatabase();
+        const dbRef = ref(db, 'lastTime/');
+        set(dbRef, this.state.lastTime);
+    }
 
+    concatDate(date) {
+        return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+    }
 
     render(){
         return (
