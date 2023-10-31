@@ -23,12 +23,20 @@ class DisplayBox extends React.Component{
     }
 
     //TODO fix this so it doesn't run twice
+    //ANSWER it runs twice because of the way React works. It runs once to set the initial state, then again to update the state.
     componentDidMount() {
-        this.setState({
-            lastTime: this.getLastTime()
-        })
+        //TODO move this to a function
+        if (this.state.lastTime === null) {this.connectToDb();}
     }
 
+    connectToDb() {
+        this.setState({
+            lastTime: this.getLastTime()
+        });
+    }
+
+    // TODO find out why this doesn't update every click
+    // ANSWER it does update every click, but the state is updated asynchronously, so it doesn't update until the next render
     handleClick() {
         const today = new Date();
         //console.log(this.concatDate(today));
@@ -39,6 +47,7 @@ class DisplayBox extends React.Component{
     }
 
     getLastTime() {
+        console.log("getting last time");
         const dbRef = this.getDbRef();
         onValue(dbRef, (snapshot) => {
             const data = snapshot.val();
@@ -56,7 +65,7 @@ class DisplayBox extends React.Component{
         return dbRef;
     }
 
-    
+
     setNewLastTime() {
         const dbRef = this.getDbRef();
         set(dbRef, this.state.lastTime);
