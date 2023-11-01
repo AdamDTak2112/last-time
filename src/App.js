@@ -1,5 +1,5 @@
 import './App.css';
-import DisplayBox from './components/DisplayBoxNew';
+import DisplayBox from './components/DisplayBox';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
