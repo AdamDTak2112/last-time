@@ -1,7 +1,5 @@
 import './App.css';
-import TodaysDate from './components/TodaysDate';
-import {Button} from 'react-bootstrap';
-import DisplayBox from './components/DisplayBox';
+import DisplayBox from './components/DisplayBoxNew';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
