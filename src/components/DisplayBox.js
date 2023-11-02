@@ -2,13 +2,35 @@ import { useState, useEffect } from "react";
 import TodaysDate from "./TodaysDate";
 import Button from "react-bootstrap/Button";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue} from "firebase/database";
+import { getDatabase, ref, set, onValue, get, child} from "firebase/database";
 import { firebaseConfig } from "../services/firebase.config";
 
 import '../App.css';
 
 export default function DisplayBox () {
     const [lastTime, setLastTime] = useState(null);
+
+    //TODO create a useEffect that gets the last time from the server on first load
+
+    useEffect(() => {
+        console.log("useEffect called");
+        console.log("getting last time");
+        setLastTime("loading...");
+        const dbRef = getDbRef();
+        /* onValue(dbRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            setLastTime(data); // TODO this is not working
+        }); */
+        get(dbRef, `lastTime/`).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                setLastTime(snapshot.val());
+            } else {
+                console.log("No data available");
+            }
+        });
+    }, []);
 
     function handleClick() {
         const today = concatDate(new Date());
