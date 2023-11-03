@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import TodaysDate from "./TodaysDate";
 import Button from "react-bootstrap/Button";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue, get, child} from "firebase/database";
+import { getDatabase, ref, set, get} from "firebase/database";
 import { firebaseConfig } from "../services/firebase.config";
 
 import '../App.css';
@@ -10,8 +10,8 @@ import '../App.css';
 export default function DisplayBox () {
     const [lastTime, setLastTime] = useState(null);
 
-    //TODO create a useEffect that gets the last time from the server on first load
-
+    //useEffect: loads the data on page load
+    
     useEffect(() => {
         console.log("useEffect called");
         console.log("getting last time");
@@ -34,7 +34,7 @@ export default function DisplayBox () {
         setLastTime(today);
     }
 
-    function getLastTime() {
+    /* function getLastTime() {
         console.log("getting last time");
         const dbRef = getDbRef();
         onValue(dbRef, (snapshot) => {
@@ -42,7 +42,7 @@ export default function DisplayBox () {
             console.log(data);
             setLastTime(data); // TODO this is not working
         });
-    }
+    } */
 
     function getDbRef() {
         const app = initializeApp(firebaseConfig);
@@ -59,7 +59,16 @@ export default function DisplayBox () {
     }
 
     function concatDate(date) {
-        return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+        const hours = date.getHours() % 12 || 12;
+        const minutes = date.getMinutes() < 10 ? '0' : '' + date.getMinutes();
+        return (date.getMonth() + 1) 
+            + "/" 
+            + date.getDate() 
+            + "/" + date.getFullYear() 
+            + " " 
+            + hours 
+            + ":" 
+            + minutes;
     }
 
     return (
