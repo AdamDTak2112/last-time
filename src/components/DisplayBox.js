@@ -17,11 +17,6 @@ export default function DisplayBox () {
         console.log("getting last time");
         setLastTime("loading...");
         const dbRef = getDbRef();
-        /* onValue(dbRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log(data);
-            setLastTime(data); // TODO this is not working
-        }); */
         get(dbRef, `lastTime/`).then((snapshot) => {
             if (snapshot.exists()) {
                 console.log(snapshot.val());
