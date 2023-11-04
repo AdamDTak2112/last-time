@@ -34,16 +34,6 @@ export default function DisplayBox () {
         setLastTime(today);
     }
 
-    /* function getLastTime() {
-        console.log("getting last time");
-        const dbRef = getDbRef();
-        onValue(dbRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log(data);
-            setLastTime(data); // TODO this is not working
-        });
-    } */
-
     function getDbRef() {
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
