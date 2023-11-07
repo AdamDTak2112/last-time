@@ -9,6 +9,8 @@ import '../App.css';
 
 export default function DisplayBox () {
     const [lastTime, setLastTime] = useState(null);
+    
+    //TODO implement state variable for dog name
 
     //useEffect: loads the data on page load
     
